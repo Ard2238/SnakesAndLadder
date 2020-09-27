@@ -3,7 +3,7 @@ import java.util.Random;
 public class SnakesNLadder {
 	
 	static final int ladder = 1, snake = 2;
-	static int pos = 0;
+	static int pos = 0, num_dice=0;
 
 	public static int getNumber(int a){
 		Random rand = new Random();
@@ -33,8 +33,6 @@ public class SnakesNLadder {
 				break;
 			default: 
 		}
-
-		System.out.println("The total pos is " + pos);
 	}
 
 	public static void main(String[] args) {
@@ -44,13 +42,14 @@ public class SnakesNLadder {
 		while(pos <= 100) {
 			if(pos == 100)
 				break;
+			num_dice++;
 			int num = getNumber(6) + 1;
-			System.out.println("The number obtained is: " + num);
-
 			int option = checkOptions();
-			System.out.println("The option obtained is: " + option);	
 			movement(option, num);
+			
+			System.out.println("The current position is: "+pos);
 		}
+		System.out.println("The dice was rolled "+num_dice+ " times.");
 	}
 
 }
