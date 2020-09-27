@@ -21,8 +21,9 @@ public class SnakesNLadder {
 	public static void movement(int option, int steps){
 
 		switch (option){
-			case ladder:	
-				pos += steps;
+			case ladder:
+				if(pos + steps <=100)
+					pos += steps;
 				break;
 			case snake:
 				if(pos -steps >= 0)
