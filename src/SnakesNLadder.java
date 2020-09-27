@@ -3,7 +3,7 @@ import java.util.Random;
 public class SnakesNLadder {
 	
 	static final int ladder = 1, snake = 2;
-	static int pos = 0, num_dice=0;
+	int pos = 0, dice_moves=0, numondice = 0, option = 0;
 
 	public static int getNumber(int a){
 		Random rand = new Random();
@@ -18,7 +18,7 @@ public class SnakesNLadder {
 		return num;
 	}
 
-	public static void movement(int option, int steps){
+	public void movement(int option, int steps){
 
 		switch (option){
 			case ladder:
@@ -39,17 +39,47 @@ public class SnakesNLadder {
 		// TODO Auto-generated method stub
 		
 		
-		while(pos <= 100) {
-			if(pos == 100)
+		SnakesNLadder p1= new SnakesNLadder();
+		SnakesNLadder p2= new SnakesNLadder();
+
+		while( p1.pos<=100 || p2.pos<=100){
+
+			if(p1.pos== 100 || p2.pos ==100)
 				break;
-			num_dice++;
-			int num = getNumber(6) + 1;
-			int option = checkOptions();
-			movement(option, num);
-			
-			System.out.println("The current position is: "+pos);
+			p1.numondice = getNumber(6) + 1;
+			p2.numondice = getNumber(6) + 1;
+
+			p1.option = checkOptions();	
+			p1.movement(p1.option, p1.numondice);
+			p1.dice_moves++;
+
+			while(p1.option == ladder){
+				p1.option = checkOptions();	
+				p1.movement(p1.option, p1.numondice);
+				p1.dice_moves++;
+			}
+
+			p2.option = checkOptions();	
+			p2.movement(p2.option, p2.numondice);
+			p2.dice_moves++;
+
+			while(p2.option == ladder){
+				p2.option = checkOptions();	
+				p2.movement(p1.option, p1.numondice);
+				p2.dice_moves++;
+			}
+
+			System.out.println("The current position of p1 is " + p1.pos);
+			System.out.println("The current position of p2 is " + p2.pos);
 		}
-		System.out.println("The dice was rolled "+num_dice+ " times.");
+
+		if(p2.pos == 100){
+			System.out.println("The dice was rolled " + p2.dice_moves + " times.");
+			System.out.println("P2 is the Winner !!");
+		}else{
+			System.out.println("The dice was rolled " + p1.dice_moves + " times.");
+			System.out.println("P1 is the Winner !!");
+		}		
 	}
 
 }
